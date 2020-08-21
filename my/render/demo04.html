@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <ele :show="show"></ele> -->
+        <button @click="show = !show">toggle</button>
+        <ele :list="list"></ele>
+    </div>
+    <script>
+        // Vue.component('ele',{
+        //     render(h) {
+        //         if(this.show){
+        //             return h('p','show的值为true')
+        //         }else{
+        //             return h('p','show的值为false')
+        //         }
+        //     },
+        //     props: {
+        //         show: {
+        //             type: Boolean,
+        //             default: false
+        //         }
+        //     }
+        // })
+        // Vue.component('ele',{
+        //     render(h) {
+        //         var nodes = []
+        //         for(var i = 0;i<this.list.length;i++){
+        //             nodes.push(h('p',this.list[i]))
+        //         }
+        //         return h('div',nodes)
+        //     },
+        //     props: {
+        //         list: {
+        //             type: Array
+        //         }
+        //     }
+        // })
+        Vue.component('ele', {
+            render(h) {
+                if (this.list.length) {
+                    return h('ul', this.list.map((item) => {
+                        return h('li', item)
+                    }))
+                } else {
+                    return h('p', '列表为空')
+                }
+            },
+            props: {
+                list: {
+                    type: Array
+                },
+                show: {
+                    type: Boolean,
+                    default: false
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    show: false,
+                    list: [
+                        'AAA',
+                        'BBB',
+                        'CCC'
+                    ]
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

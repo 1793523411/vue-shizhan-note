@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg" name="" id="">
+        {{msg}}
+        <input type="text" @input="handleInput" name="" id="">
+        <hr>
+        <input type="radio" :checked="picked" name="" id="">
+        <label @click="picked = !picked">单选</label>
+        <hr>
+
+        <input type="radio" v-model="picked2" value="html" id="html">
+        <label for="html">HTML</label>
+        <hr>
+        <input type="radio" v-model="picked2" value="css" id="css">
+        <label for="css">CSS</label>
+        <hr>
+        <input type="radio" v-model="picked2" value="js" id="js">
+        <label for="js">JS</label>
+        <hr>
+
+
+        <input type="checkbox" v-model="checked2" id="checked2" name="">
+        <label for="checked2">status: {{checked2}}</label>
+
+        <hr>
+        <input type="checkbox" v-model="checked" value="html" id="html">
+        <label for="html">HTML</label>
+        <hr>
+        <input type="checkbox" v-model="checked" value="css" id="css">
+        <label for="css">CSS</label>
+        <hr>
+        <input type="checkbox" v-model="checked" value="js" id="js">
+        <label for="js">JS</label>
+        <hr>
+
+        <select v-model="selected" multiple>
+            <option>html</option>
+            <option value="js">jsXXX</option>
+            <option>css</option>
+        </select>
+        <hr>
+        <input type="radio" v-model="picked3" name="" id="" :value="value">
+        <label>single</label>
+        <p>{{picked3}}</p>
+        <p>{{value}}</p>
+        <hr>
+        <input type="checkbox" v-model="toggle" :true-value="value1" :false-value="value2">
+        <label >复选框</label>
+        <p>{{toggle}}</p>
+        <p>value1</p>
+        <p>value2</p>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello',
+                picked: true,
+                picked2: 'js',
+                checked2: false,
+                checked: ['js'],
+                selected: 'html',
+                picked3: 'false',
+                value: 123,
+                toggle:false,
+                value1:'a',
+                value2:'b'
+            },
+            methods: {
+                handleInput: function (e) {
+                    this.msg = e.target.value
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

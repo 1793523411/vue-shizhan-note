@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ele>
+            <child></child>
+        </ele>
+    </div>
+    <script>
+        // var Child = {
+        //     render(h) {
+        //         return h('p', 'text')
+        //     },
+        // }
+        // Vue.component('ele',{
+        //     render(h) {
+        //         var ChildNode = h(Child)
+        //         return h('div',[
+        //             ChildNode,
+        //             ChildNode
+        //     ])
+        //     },
+        // })
+        Vue.component('Child',{
+            render(h) {
+                return h('p','text')
+            },
+        })
+        // Vue.component('ele',{
+        //     render(h) {
+        //         return h('div', [
+        //             this.$slots.default,
+        //             this.$slots.default
+        //         ])
+        //     },
+        // })
+        // Vue.component('ele',{
+        //     render(h) {
+        //         return h('div',
+        //             Array.apply(null, {
+        //                 length: 5
+        //             }).map(() => {
+        //                 return h(Child)
+        //             })
+        //         )
+        //     },
+        // })
+        Vue.component('ele', {
+            render(h) {
+                function cloneVNode(vnode) {
+                    cloneChildren = vnode.children && vnode.children.map(function (vnode) {
+                        return cloneVNode(vnode)
+                    });
+                    const cloned = h(
+                        vnode.tag,
+                        vnode.data,
+                        cloneChildren
+                    );
+                    cloned.text = vnode.text
+                    cloned.isComment = vnode.isComment
+                    cloned.componentOptions = vnode.componentOptions
+                    cloned.context = vnode.context
+                    cloned.ns = vnode.ns
+                    cloned.isStatic = vnode.isStatic
+                    cloned.key = vnode.key
+
+                    return cloned
+                }
+                const vNodes = this.$slots.default
+                const clonedVNodes = vNodes.map((vnode) => {
+                    return cloneVNode(vnode)
+                })
+                console.log(clonedVNodes)
+                return h('div',[
+                    vNodes,
+                    clonedVNodes,
+                    clonedVNodes,
+                    clonedVNodes,
+                    clonedVNodes,
+            ])
+            }
+        })
+        new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>

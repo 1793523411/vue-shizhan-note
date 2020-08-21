@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ele></ele>
+        <ele>
+            <p>slot内容</p>
+            <p>slot内容</p>
+            <p>slot内容</p>
+            <p>slot内容</p>
+        </ele>
+        <ele>
+            hhh
+        </ele>
+    </div>
+    <script>
+        Vue.component('ele',{
+            render(h) {
+                console.log(this.$slots)
+                if (this.$slots.default === undefined) {
+                    return h('div', '没有使用slot时的显示的文本')
+                } else {
+                    return h('div', this.$slots.default)
+                }
+            },
+        })
+        var app = new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>

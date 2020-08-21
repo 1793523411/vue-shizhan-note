@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{date}}
+        <span v-pre>{{date}}</span>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                date: new Date()
+            },
+            mounted() {
+                var _this = this
+                this.timer = setInterval(function () {
+                    _this.date = new Date()
+                }, 1000)
+            },
+            
+            beforeDestroy() {
+                if (this.timer) {
+                    clearInterval(this.timer)
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

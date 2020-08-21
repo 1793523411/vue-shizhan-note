@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child :count="1"></child>
+        <child2 inline-template>
+            <div>
+                <h2>父组件中定义的子组件模板</h2>
+                <p>{{message}}</p>
+                <p>{{msg}}</p>
+            </div>
+        </child2>
+        <hr>
+        {{message}}
+    </div>
+    <script>
+        Vue.component('child2',{
+            data() {
+                return {
+                    msg:'child'
+                }
+            },
+        })
+        Vue.component('child',{
+            name: 'child',
+            props:{
+                count:{
+                    type: Number,
+                    default: 1
+                }
+            },
+            template:`
+                <div>
+                    <child :count="count+1" v-if="count<3"></child>
+                </div>
+            `
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'parent'
+            }
+        })
+    </script>
+</body>
+</html>

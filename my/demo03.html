@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model.lazy="message">
+        <input type="text" v-model.number="number">
+        <p>{{message}}</p>
+        <p>{{number}}</p>
+
+        <my-component message="[1,2,3]"></my-component>
+        <my-component :message="[1,2,3]"></my-component>
+
+        <child-component>
+            <h2 slot="header">标题</h2><p>正文内容</p><p>更多而正文内容</p><div slot="footer"></div>
+        </child-component>
+    </div>
+    <script>
+        Vue.component('my-component',{
+            props: ['message'],
+            template:`<div>{{ message.length }}</div>`
+        })
+
+        Vue.component('child-component',{
+            template: `
+                <div>
+                    <div>
+                        <slot name="header"></slot>    
+                    </div>    
+                    <div>
+                        <slot></slot>    
+                    </div>    
+                    <div>
+                        <slot name="footer"></slot>    
+                    </div>    
+                </div>
+            `,
+            mounted() {
+                var header = this.$slots.header
+                var main = this.$slots.default
+                var footer = this.$slots.footer
+                console.log(this.$slots)
+                console.log(footer)
+                console.log(main)
+                console.log(header)
+            },
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                message:'',
+                number:0
+            }
+        })
+    </script>
+</body>
+
+</html>

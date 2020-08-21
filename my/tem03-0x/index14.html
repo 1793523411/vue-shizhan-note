@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        var MyComponent = Vue.extend({
+            template: `<div>Hello: {{ name }}</div>`,
+            data() {
+                return {
+                    name: 'ARen'
+                }
+            },
+            //下面写法报错
+            // data: {
+            //     name:'ARen'
+            // }
+        })
+        // new MyComponent().$mount('#app')
+        // new MyComponent({
+        //     el:'#app'
+        // })
+        var component = new MyComponent().$mount()
+        console.log(component)
+        document.getElementById('app').appendChild(component.$el)
+    </script>
+</body>
+</html>

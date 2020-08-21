@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$nextTick</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-if=show id="msg">{{msg}}</div>
+        <button @click="handle">toggle</button>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg:'aaaaaa',
+                    show: false
+                }
+            },
+            methods: {
+                // handle:function(){
+                //     this.show = !this.show
+                //     console.log(document.getElementById('msg').innerHTML)
+                // }
+                handle:function(){
+                    this.show = !this.show
+                    this.$nextTick(() =>{
+                    console.log(document.getElementById('msg').innerHTML)
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+</html>

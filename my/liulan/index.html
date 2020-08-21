@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app" v-cloak style="width: 500px;margin: 0 auto;">
+        <div class="message">
+            <v-input v-model="username"></v-input>
+            <v-textarea v-model="message"></v-textarea>
+            <button @click="handleSend">发布</button>
+        </div>
+        <list :list="list" @reply="hanldeReply"></list>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./input.js"></script>
+    <script src="./list.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>

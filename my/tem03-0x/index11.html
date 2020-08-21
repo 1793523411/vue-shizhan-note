@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态组件，异步组件</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <component :is="currentView"></component>
+        <hr>
+        <button @click="handle('A')">A</button>
+        <button @click="handle('B')">B</button>
+        <button @click="handle('C')">C</button>
+        <child></child>
+    </div>
+    <script>
+        Vue.component('child',(reslove, reject)=>{
+            window.setTimeout(() => {
+                reslove({
+                    template:`<div>我是异步组件</div>`
+                })
+            },2000)
+        })
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    currentView : 'comA'
+                }
+            },
+            components:{
+                comA:{
+                    template: `<div>AAA</div>`
+                },
+                comB:{
+                    template: `<div>BBB</div>`
+                },
+                comC:{
+                    template: `<div>CCC</div>`
+                }
+            },
+            methods: {
+                handle: function(com){
+                    this.currentView = 'com' + com
+                }
+            },
+        })
+    </script>
+</body>
+</html>
